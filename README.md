@@ -1,4 +1,30 @@
-# Trello Power-Up Template
+# Trello Share Power-Up
+At the moment it's difficult to share a card with some one that's not in your
+team. The only way is to add users to your board but then other cards
+are visible too.
+
+## A typical use-case for sharing is something like this:
+You have created a task description that you like to share with a member at Upwork
+or Freelancer to work on the task.
+But if you created it in Trello the only way would be to copy&paste everything
+and post it.
+
+# Idea for the power-up
+Copy the card to a Github Gist or a Bitbucket snippet and create a URL with UUID to display the card from the new source.
+
+A copy is required because directly accessing the export json will only be visible by
+board members.
+
+# Current Status of the power-up
+Just copied the static github power-up from https://github.com/trello/power-up-template.
+
+Todos:
+
+- Check if a gist can be with a uuid. If not a webserver at Heroku would be required to store the exported cards. (Webserver would be better so it won't be indexed by Google - Gist probably get indexed)
+- Trigger export action and load it to a Gist
+- Create a github page for loading the Gist to display the exported card
+
+# Based on static Trello Power-Up Template
 A static GitHub pages hosted sample Power-Up. Feel free to fork this repo as a starting point for your own Trello Power-Up.
 
 Want to learn more about building Power-Ups for Trello? Visit our [developer site](https://developers.trello.com/power-ups) for all of the latest information. Want to try this sample out right away without waiting? Put this url (https://trello.github.io/power-up-template/manifest.json) into the prompt on https://trello.com/power-up-preview then you will see a new Power-Up called 'Static Template' show up in your list of Power-Ups.
