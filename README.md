@@ -15,14 +15,27 @@ Copy the card to a Github Gist or a Bitbucket snippet and create a URL with UUID
 A copy is required because directly accessing the export json will only be visible by
 board members.
 
+# Testing the Power up for your team
+
+Goto www.trello.com/power-ups/admin and enter https://awolf81.github.io/TrelloPrinter/manifest.json to install this power up.
+
+# What will the power up do?
+It picks the JSON data from your card (currently only title and description) and
+posts a copy to http://jsonblob.com with a uuid that only you and anyone with access to your board will see. (It is also not indexed at Google because it's an REST endpoint.)
+
 # Current Status of the power-up
-Just copied the static github power-up from https://github.com/trello/power-up-template.
+Copy to jsonblob.com and rendering with TrelloPrinter is working. Basic sharing is working.
+Next add Share to Panel and some smaller fixes.
 
 Todos:
-
-- Check if a gist can be with a uuid. If not a webserver at Heroku would be required to store the exported cards. (Webserver would be better so it won't be indexed by Google - Gist probably get indexed)
-- Trigger export action and load it to a Gist
-- Create a github page for loading the Gist to display the exported card
+[x] Copied the static github power-up from https://github.com/trello/power-up-template.
+[x] Check if a gist can be with a uuid. If not a webserver at Heroku would be required to store the exported cards. (Webserver would be better so it won't be indexed by Google - Gist probably get indexed)
+[x] Trigger export action and post it to jsonblob.com
+[x] Create a github page for loading the JSON to display the exported card
+[ ] Share a panel
+[ ] Trigger remove of data if attachment is removed
+[ ] Trigger update of the share if card changes
+[ ] Change caption of power-up card button to Share...
 
 # Based on static Trello Power-Up Template
 A static GitHub pages hosted sample Power-Up. Feel free to fork this repo as a starting point for your own Trello Power-Up.
