@@ -1,5 +1,6 @@
 /* global Trello, jQuery, TrelloPowerUp */
 var SHARE_ICON = './images/fa-share-alt.svg';
+var PRINTER_URL = 'https://awolf81.github.io/TrelloPrinter/?url=';
 
 function postJSON(data) {
     return $.ajax('https://jsonblob.com/api/jsonBlob', {
@@ -27,7 +28,7 @@ var cardButtonCallback = function(t) {
                       function(res, status, jqXHR) {
                           var sharedURL  = jqXHR.getResponseHeader('Location');
                           return t.attach({
-                              url: 'https://awolf81.github.io/TrelloPrinter/?url=' + sharedURL,
+                              url: PRINTER_URL + sharedURL,
                               name: 'Shared JSON'
 
                           })
@@ -41,22 +42,58 @@ var cardButtonCallback = function(t) {
                   )
                 }
               }
-          ],
-          search: {
-              count: 5,
-              placeholder: 'Search National Parks',
-              empty: 'No parks found'
-          }
+          ]
       });
     });
 }
 
 // share board or panel
+function shareCallback(type) {
+
+    return t.board('all')
+        .then(function(promiseResult) {
+            // always load board data --> needed to post or display selection
+            if (type === 'board') {
+                return postJSON(promiseResult).then(function(res, status, jqXHR) {
+                    var sharedURL  = jqXHR.getResponseHeader('Location');
+                    return t.popup({
+                        url: PRINTER_URL + sharedURL,
+                        name: 'Shared board successful'
+                    })
+                    .then(function(){
+                      return t.closePopup();
+                    })
+                },
+                function(err) {
+                    console.log(err); // todo --> show notifcation
+                });
+            }
+
+            // load board bar and display checkboxes with panels to export
+            return t.boardBar({
+              url: './board-bar.html',
+              height: 200
+            })
+            .then(function(){
+              return t.closePopup();
+            });
+        });
+
+}
+
 var boardButtonCallback = function(t){
   return t.popup({
     title: 'Share board or panel',
     items: [
-      {
+        {
+            text: 'Board',
+            callback: shareCallback('board')
+        },
+        {
+            text: 'Panel',
+            callback: shareCallback('panel')
+        }
+      /*{
         text: 'Open Overlay',
         callback: function(t){
           return t.overlay({
@@ -80,7 +117,7 @@ var boardButtonCallback = function(t){
           });
         }
       }
-    ]
+    ]*/
   });
 };
 
