@@ -93,6 +93,7 @@ var boardButtonCallback = function(t){
             text: 'Panel',
             callback: shareCallback('panel')
         }
+    ]
       /*{
         text: 'Open Overlay',
         callback: function(t){
