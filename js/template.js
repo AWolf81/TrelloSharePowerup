@@ -81,17 +81,26 @@ function shareCallback(type, t) {
 
 }
 
+// wrapper functions for sharing
+var shareBoard = function(t) {
+    return shareCallback('board', t);
+};
+
+var sharePanel = function(t) {
+    return shareCallback('panel', t);
+};
+
 var boardButtonCallback = function(t){
   return t.popup({
     title: 'Share board or panel',
     items: [
         {
             text: 'Board',
-            callback: shareCallback('board', t)
+            callback: shareBoard
         },
         {
             text: 'Panel',
-            callback: shareCallback('panel', t)
+            callback: sharePanel
         }
     ]
       /*{
