@@ -51,12 +51,52 @@ var cardButtonCallback = function(t) {
     });
 }
 
+// share board or panel
+var boardButtonCallback = function(t){
+  return t.popup({
+    title: 'Share board or panel',
+    items: [
+      {
+        text: 'Open Overlay',
+        callback: function(t){
+          return t.overlay({
+            url: './overlay.html',
+            args: { rand: (Math.random() * 100).toFixed(0) }
+          })
+          .then(function(){
+            return t.closePopup();
+          });
+        }
+      },
+      {
+        text: 'Open Board Bar',
+        callback: function(t){
+          return t.boardBar({
+            url: './board-bar.html',
+            height: 200
+          })
+          .then(function(){
+            return t.closePopup();
+          });
+        }
+      }
+    ]
+  });
+};
+
 TrelloPowerUp.initialize({
   'card-buttons': function(t, options) {
     return [{
       icon: SHARE_ICON,
       text: 'Share',
       callback: cardButtonCallback
+    }];
+  },
+  'board-buttons': function(t, options){
+    return [{
+      icon: SHARE_ICON,
+      text: 'Share board or panel',
+      callback: boardButtonCallback
     }];
   },
   'show-settings': function(t, options){
