@@ -57,10 +57,14 @@ function shareCallback(type, t) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         url: PRINTER_URL + sharedURL,
-                        name: 'Shared board successful',
-                        callback: function(t) {
-                            t.closePopup();
-                        }
+                        name: 'Shared board successfully: ' + sharedURL,
+                        items: [
+                            {
+                                text: 'OK',
+                                callback: function(t) {
+                                    t.closePopup();
+                            }
+                        ]
                     })
                     .then(function(){
                       return t.closePopup();
