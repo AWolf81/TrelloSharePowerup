@@ -49,7 +49,6 @@ var cardButtonCallback = function(t) {
 
 // share board or panel
 function shareCallback(type, t) {
-
     return t.board('all')
         .then(function(promiseResult) {
             // always load board data --> needed to post or display selection
@@ -68,15 +67,16 @@ function shareCallback(type, t) {
                     console.log(err); // todo --> show notifcation
                 });
             }
-
-            // load board bar and display checkboxes with panels to export
-            return t.boardBar({
-              url: './board-bar.html',
-              height: 200
-            })
-            .then(function(){
-              return t.closePopup();
-            });
+            else {
+                // load board bar and display checkboxes with panels to export
+                return t.boardBar({
+                    url: './board-bar.html',
+                    height: 200
+                })
+                .then(function(){
+                    return t.closePopup();
+                });
+            }
         });
 
 }
