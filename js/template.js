@@ -63,6 +63,7 @@ function shareCallback(type, t) {
                                 text: 'OK',
                                 callback: function(t) {
                                     t.closePopup();
+                                }
                             }
                         ]
                     })
