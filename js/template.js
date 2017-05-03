@@ -56,8 +56,8 @@ function shareCallback(type, t) {
                 return postJSON(promiseResult).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
-                        url: PRINTER_URL + sharedURL,
-                        name: 'Shared board successfully: ' + sharedURL,
+                        //url: PRINTER_URL + sharedURL, // url loads html into the popup
+                        title: 'Shared board successfully: ' + sharedURL,
                         items: [
                             {
                                 text: 'OK',
