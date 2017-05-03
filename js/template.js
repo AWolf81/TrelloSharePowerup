@@ -2,6 +2,11 @@
 var SHARE_ICON = './images/fa-share-alt.svg';
 var PRINTER_URL = 'https://awolf81.github.io/TrelloPrinter/?url=';
 
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+
 function postJSON(data) {
     return $.ajax('https://jsonblob.com/api/jsonBlob', {
     	method: 'POST',
@@ -57,11 +62,19 @@ function shareCallback(type, t) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
-                        title: 'Shared board successfully: ' + sharedURL,
+                        title: 'Shared board successfully',
                         items: [
                             {
-                                text: 'OK',
+                                text: 'Open share',
                                 callback: function(t) {
+                                    openInNewTab(PRINTER_URL + sharedURL),
+                                    t.closePopup();
+                                }
+                            },
+                            {
+                                text: 'Copy URL to clipboard',
+                                callback: function(t) {
+                                    window.prompt("Copy to clipboard: Ctrl+C, Enter", PRINTER_URL + sharedURL);
                                     t.closePopup();
                                 }
                             }
