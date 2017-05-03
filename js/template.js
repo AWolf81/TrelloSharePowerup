@@ -66,9 +66,9 @@ function shareCallback(type, t) {
                             }
                         ]
                     })
-                    .then(function(){
+                    /*.then(function(){
                       return t.closePopup();
-                    })
+                  })*/
                 },
                 function(err) {
                     console.log(err); // todo --> show notifcation
