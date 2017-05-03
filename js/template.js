@@ -48,7 +48,7 @@ var cardButtonCallback = function(t) {
 }
 
 // share board or panel
-function shareCallback(type) {
+function shareCallback(type, t) {
 
     return t.board('all')
         .then(function(promiseResult) {
@@ -87,11 +87,11 @@ var boardButtonCallback = function(t){
     items: [
         {
             text: 'Board',
-            callback: shareCallback('board')
+            callback: shareCallback('board', t)
         },
         {
             text: 'Panel',
-            callback: shareCallback('panel')
+            callback: shareCallback('panel', t)
         }
     ]
       /*{
