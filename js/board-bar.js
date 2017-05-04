@@ -1,4 +1,4 @@
-/* global TrelloPowerUp */
+/* global TrelloPowerUp, jQuery */
 var DEFAULT_STATE_CHECKBOXES = true;
 var t = TrelloPowerUp.iframe();
 var $ = jQuery;
