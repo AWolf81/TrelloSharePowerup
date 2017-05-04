@@ -7,4 +7,5 @@ t.render(function(){
   // and then called each time something changes that
   // you might want to react to, such as new data being
   // stored with t.set()
+  console.log(t.args, arguments);
 });

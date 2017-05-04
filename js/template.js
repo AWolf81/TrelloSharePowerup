@@ -27,7 +27,7 @@ var cardButtonCallback = function(t) {
           title: 'Share this card',
           items: [
               {
-                text: 'Share card: ' + url,
+                text: 'Shared card: ' + url,
                 url: url,
                 callback: function(t){
                   return postJSON(promiseResult).then(
@@ -56,28 +56,29 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t, Promise);
-    return Promise.join(t.lists('id', 'name'), t.cards('all'), t.board('all')
-
-
+    return Promise.join(
+        t.lists('id', 'name'),
+        t.cards('all'),
+        t.board('all')
             // json export would contain the following items:
                 // fields: "all",
                 // actions: "all",
                 // action_fields: "all",
                 // actions_limit: 1000,
-                // cards: "all",
+                // cards: "all", --> exported
                 // card_fields: "all",
                 // card_attachments: true,
                 // labels: "all",
-                // lists: "all",
+                // lists: "all", --> exported
                 // list_fields: "all",
-                // members: "all",
+                // members: "all", --> exported
                 // member_fields: "all",
                 // checklists: "all",
                 // checklist_fields: "all",
                 // organization: false
         )
         .then(function(promiseResults) { // gets all lists with card infos (except comments)
-            console.log(promiseResults);
+            // console.log(promiseResults);
             var boardJson = $.extend({},
                 promiseResults[2], // board inf
                 {
@@ -90,7 +91,7 @@ function shareCallback(type, t) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
-                        title: 'Shared board successfully',
+                        title: 'Created shared board successfully',
                         items: [
                             {
                                 text: 'Open share',
@@ -105,7 +106,14 @@ function shareCallback(type, t) {
                                     window.prompt("Copy to clipboard: Ctrl+C, Enter", PRINTER_URL + sharedURL);
                                     t.closePopup();
                                 }
-                            }
+                            },
+                            {
+                                text: 'Open share JSON',
+                                callback: function(t) {
+                                    openInNewTab(sharedURL),
+                                    t.closePopup();
+                                }
+                            },
                         ]
                     })
                     /*.then(function(){
@@ -120,7 +128,8 @@ function shareCallback(type, t) {
                 // load board bar and display checkboxes with panels to export
                 return t.boardBar({
                     url: './board-bar.html',
-                    height: 200
+                    height: 200,
+                    args: boardJson
                 })
                 .then(function(){
                     return t.closePopup();
