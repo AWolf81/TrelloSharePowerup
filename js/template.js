@@ -56,7 +56,7 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    return Promise.all([t.list('all'), t.board('all')]
+    return Promise.all([t.list(), t.board('all')]
 
 
             // json export would contain the following items:
