@@ -76,10 +76,10 @@ function shareCallback(type, t) {
                 // checklist_fields: "all",
                 // organization: false
         )
-        .then(function(lists, board) { // gets all lists with card infos (except comments)
-            console.log(lists, board);
+        .then(function(promiseResults) { // gets all lists with card infos (except comments)
+            console.log(promiseResults);
             if (type === 'board') {
-                return postJSON({lists: lists}).then(function(res, status, jqXHR) {
+                return postJSON({lists: promiseResults[0]}).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
