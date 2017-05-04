@@ -78,10 +78,11 @@ function shareCallback(type, t) {
         )
         .then(function(promiseResults) { // gets all lists with card infos (except comments)
             console.log(promiseResults);
-            var boardJson = promiseResults[3]; // start with board info
-            $.merge(bordJson, {
-                lists: promiseResults[0],
-                cards: promiseResults[1]
+            var boardJson = $.extend({},
+                promiseResults[3], // board inf
+                {
+                lists: promiseResults[0], //lists
+                cards: promiseResults[1] // cards
             });
 
             if (type === 'board') {
