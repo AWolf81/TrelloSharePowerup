@@ -55,18 +55,9 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    //return t.cards('all').then(function(promiseResult) { // gets all cards of board
-    return t.lists('all').then(function(promiseResult) {
-            //t.get('/batch/?urls=/boards/' + id +
-            //    '/,/boards/'+ id +'/cards').then(function(promiseResult) {
-            // always load board data --> needed to post or display selection
-            /*console.log(promiseResult);
-            data = promiseResult.map(function(item) {
-                return item['200']; // status is the key of each item
-            });*/
-
+    return t.lists('all').then(function(promiseResult) { // gets all lists with card infos (except comments)
             if (type === 'board') {
-                return postJSON(promiseResult).then(function(res, status, jqXHR) {
+                return postJSON({lists: promiseResult}).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
