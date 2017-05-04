@@ -60,7 +60,7 @@ function shareCallback(type, t) {
             console.log(board);
             var id = board.shortLink;
             // query board + cards --> ideally would be the complete json export --> how to trigger it?
-            $.getJSON('/boards/' + id + '/?actions=all').then(function(promiseResult) {
+            t.get('/boards/' + id + '/?actions=all').then(function(promiseResult) {
             //t.get('/batch/?urls=/boards/' + id +
             //    '/,/boards/'+ id +'/cards').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
