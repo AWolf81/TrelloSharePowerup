@@ -54,8 +54,8 @@ var cardButtonCallback = function(t) {
 
 // share board or panel
 function shareCallback(type, t) {
-    console.log(window.location.href);
-    return $.getJSON('https://trello.com/1/boards/hSoIr2mB/?actions=all').then(function(promiseResult) {
+    console.log(window.location.href, t);
+    return $.getJSON('https://trello.com/1/boards/hSoIr2mB/?actions=all&token=' + t.token).then(function(promiseResult) {
             //t.get('/batch/?urls=/boards/' + id +
             //    '/,/boards/'+ id +'/cards').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
