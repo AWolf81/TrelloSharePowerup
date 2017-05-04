@@ -55,7 +55,23 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    return t.lists('all').then(function(promiseResult) { // gets all lists with card infos (except comments)
+    return t.get({
+        fields: "all",
+        actions: "all",
+        action_fields: "all",
+        actions_limit: 1000,
+        cards: "all",
+        card_fields: "all",
+        card_attachments: true,
+        labels: "all",
+        lists: "all",
+        list_fields: "all",
+        members: "all",
+        member_fields: "all",
+        checklists: "all",
+        checklist_fields: "all",
+        organization: false
+    }).then(function(promiseResult) { // gets all lists with card infos (except comments)
             if (type === 'board') {
                 return postJSON({lists: promiseResult}).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
