@@ -55,7 +55,7 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    return t.get({
+    return t.lists({
         fields: "all",
         actions: "all",
         action_fields: "all",
