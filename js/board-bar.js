@@ -1,6 +1,7 @@
 /* global TrelloPowerUp */
 var DEFAULT_STATE_CHECKBOXES = true;
 var t = TrelloPowerUp.iframe();
+var $ = jQuery;
 
 t.render(function(){
   // this function we be called once on initial load
