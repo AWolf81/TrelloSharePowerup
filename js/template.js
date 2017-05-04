@@ -54,7 +54,7 @@ var cardButtonCallback = function(t) {
 
 // share board or panel
 function shareCallback(type, t) {
-    return t.lists()
+    return t.lists('all')
         .then(function(promiseResult) {
             // always load board data --> needed to post or display selection
             if (type === 'board') {
