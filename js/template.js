@@ -55,10 +55,14 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href);
-    return t.board('shortLink') // browser url + json --> returns json of board
+    var url = (window.location != window.parent.location)
+            ? document.referrer
+            : document.location.href; // it would be better to query with Trello api but I couldn't get the same output with a request
+
+    return $.getJSON(url + '.json') // browser url + json --> returns json of board
         .then(function(boardLink) {
             console.log(boardLink);
-            $.getJSON(boardLink + '.json').then(function(promiseResult) {
+            //$.getJSON(boardLink + '.json').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
             if (type === 'board') {
                 return postJSON(promiseResult).then(function(res, status, jqXHR) {
@@ -102,7 +106,7 @@ function shareCallback(type, t) {
                 });
             }
         });
-    });
+    //});
 }
 
 // wrapper functions for sharing
