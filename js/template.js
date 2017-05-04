@@ -54,7 +54,8 @@ var cardButtonCallback = function(t) {
 
 // share board or panel
 function shareCallback(type, t) {
-    return Trello.get(window.location + '.json') // browser url + json --> returns json of board
+    console.log(window.location.href);
+    return $.getJSON(window.location + '.json') // browser url + json --> returns json of board
         .then(function(promiseResult) {
             // always load board data --> needed to post or display selection
             if (type === 'board') {
