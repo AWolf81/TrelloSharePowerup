@@ -55,17 +55,21 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href);
-    var url = (window.location != window.parent.location)
-            ? document.referrer
-            : document.location.href; // it would be better to query with Trello api but I couldn't get the same output with a request
-
-    return $.getJSON(url + '.json') // browser url + json --> returns json of board
-        .then(function(boardLink) {
-            console.log(boardLink);
-            //$.getJSON(boardLink + '.json').then(function(promiseResult) {
+    return t.board('shortLink') // browser url + json --> returns json of board
+        .then(function(board) {
+            console.log(board);
+            var id = board.shortLink;
+            // query board + cards --> ideally would be the complete json export --> how to trigger it?
+            Trello.get('batch/?urls=/boards/' + id +
+                '/,/boards/'+ id +'/cards').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
+            console.log(promiseResult);
+            data = promiseResult.map(function(item) {
+                return item['200']; // status is the key of each item
+            });
+
             if (type === 'board') {
-                return postJSON(promiseResult).then(function(res, status, jqXHR) {
+                return postJSON(data).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
@@ -106,7 +110,7 @@ function shareCallback(type, t) {
                 });
             }
         });
-    //});
+    });
 }
 
 // wrapper functions for sharing
