@@ -79,7 +79,7 @@ function shareCallback(type, t) {
         .then(function(lists, board) { // gets all lists with card infos (except comments)
             console.log(lists, board);
             if (type === 'board') {
-                return postJSON({lists: lists]}).then(function(res, status, jqXHR) {
+                return postJSON({lists: lists}).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
