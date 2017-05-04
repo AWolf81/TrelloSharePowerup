@@ -1,6 +1,7 @@
 /* global Trello, jQuery, TrelloPowerUp */
 var SHARE_ICON = './images/fa-share-alt.svg';
 var PRINTER_URL = 'https://awolf81.github.io/TrelloPrinter/?url=';
+var Promise = TrelloPowerUp.Promise;
 
 function openInNewTab(url) {
   var win = window.open(url, '_blank');
@@ -55,28 +56,30 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    return Trello.get('boards/hSoIr2mB', {
-            query: {
-                fields: "all",
-                actions: "all",
-                action_fields: "all",
-                actions_limit: 1000,
-                cards: "all",
-                card_fields: "all",
-                card_attachments: true,
-                labels: "all",
-                lists: "all",
-                list_fields: "all",
-                members: "all",
-                member_fields: "all",
-                checklists: "all",
-                checklist_fields: "all",
-                organization: false
-            }
-        })
+    return Promise.all([t.list('all'), t.board('all')]
+
+
+            // json export would contain the following items:
+                // fields: "all",
+                // actions: "all",
+                // action_fields: "all",
+                // actions_limit: 1000,
+                // cards: "all",
+                // card_fields: "all",
+                // card_attachments: true,
+                // labels: "all",
+                // lists: "all",
+                // list_fields: "all",
+                // members: "all",
+                // member_fields: "all",
+                // checklists: "all",
+                // checklist_fields: "all",
+                // organization: false
+        )
         .then(function(promiseResult) { // gets all lists with card infos (except comments)
+            console.log(promiseResult);
             if (type === 'board') {
-                return postJSON({lists: promiseResult}).then(function(res, status, jqXHR) {
+                return postJSON({lists: promiseResult[0]}).then(function(res, status, jqXHR) {
                     var sharedURL  = jqXHR.getResponseHeader('Location');
                     return t.popup({
                         //url: PRINTER_URL + sharedURL, // url loads html into the popup
