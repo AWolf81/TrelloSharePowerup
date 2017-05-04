@@ -55,8 +55,10 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href);
-    return $.getJSON(window.location + '.json') // browser url + json --> returns json of board
-        .then(function(promiseResult) {
+    return t.board('shortLink') // browser url + json --> returns json of board
+        .then(function(boardLink) {
+            console.log(boardLink);
+            $.getJSON(boardLink + '.json').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
             if (type === 'board') {
                 return postJSON(promiseResult).then(function(res, status, jqXHR) {
@@ -100,7 +102,7 @@ function shareCallback(type, t) {
                 });
             }
         });
-
+    });
 }
 
 // wrapper functions for sharing
