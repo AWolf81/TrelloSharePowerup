@@ -55,7 +55,8 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href, t);
-    return t.cards('all').then(function(promiseResult) {
+    //return t.cards('all').then(function(promiseResult) { // gets all cards of board
+    return t.lists('all').then(function(promiseResult) {
             //t.get('/batch/?urls=/boards/' + id +
             //    '/,/boards/'+ id +'/cards').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
