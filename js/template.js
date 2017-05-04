@@ -55,12 +55,7 @@ var cardButtonCallback = function(t) {
 // share board or panel
 function shareCallback(type, t) {
     console.log(window.location.href);
-    return t.board('shortLink') // browser url + json --> returns json of board
-        .then(function(board) {
-            console.log(board);
-            var id = board.shortLink;
-            // query board + cards --> ideally would be the complete json export --> how to trigger it?
-            t.lists().then(function(promiseResult) {
+    return t.lists().then(function(promiseResult) {
             //t.get('/batch/?urls=/boards/' + id +
             //    '/,/boards/'+ id +'/cards').then(function(promiseResult) {
             // always load board data --> needed to post or display selection
@@ -111,7 +106,6 @@ function shareCallback(type, t) {
                 });
             }
         });
-    });
 }
 
 // wrapper functions for sharing
