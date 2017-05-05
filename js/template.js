@@ -217,7 +217,7 @@ TrelloPowerUp.initialize({
   }
 });
 
-template = {
+window.template = {
     postJSON: postJSON,
     shareBoardAction: shareBoardAction
 };
