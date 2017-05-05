@@ -48,7 +48,7 @@ var ListShare = {
     },
     initForm: function(boardJson, cb) {
         var $checkboxContainer = document.createElement('div');
-        this.cb = cb;
+        ListShare.cb = cb;
         for (var list of boardJson.lists) {
             console.log(list);
             var $span = document.createElement('span');
