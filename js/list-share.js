@@ -82,7 +82,7 @@ var ListShare = {
         document.getElementById('selectedLists').appendChild($checkboxContainer);
 
         // add event listeners
-        this.addEventListeners();
+        ListShare.addEventListeners();
 
         this.renderOutput();
     },
