@@ -2,131 +2,131 @@
 // https://jsfiddle.net/awolf2904/kebe6ayq/
 
 var boardJson = { // for testing
-  lists: [{
-    id: 0,
-    name: 'Demo list'
-  }, {
-    id: 1,
-    name: 'Example list'
-  }],
-  cards: [{
-  	listId: 0,
-    title: 'Demo'
-  },
-  {
-  	listId: 1,
-    title: 'Demo1'
-  },
-  ]
+    lists: [{
+        id: 0,
+        name: 'Demo list'
+    }, {
+        id: 1,
+        name: 'Example list'
+    }],
+    cards: [{
+        listId: 0,
+        title: 'Demo'
+    },
+    {
+        listId: 1,
+        title: 'Demo1'
+    },
+]
 };
 
 var selection = {
-	lists: [],
-  cards: []
+    lists: [],
+    cards: []
 };
 
 var DEFAULT_STATE_CHECKBOXES = true;
 
 var ListShare = {
+    addEventListeners() {
+        document.getElementById('selectedLists')
+        .addEventListener('change', this.events.onChange);
+
+        document.getElementById('btnShare').addEventListener('click', share);
+    },
+    renderOutput() {
+        var $out = document.getElementById('sharedData');
+        var $li = document.createElement('li');
+        $out.innerHTML = '';
+        for(var selected of selection.lists) {
+            if (selected && selected.id) {
+                $li.innerHTML = selected.name;
+                $out.appendChild($li.cloneNode(true));
+            }
+        }
+    },
     initForm(boardJson, cb) {
         var $checkboxContainer = document.createElement('div');
         this.cb = cb;
         for (var list of boardJson.lists) {
-      console.log(list);
-        var $span = document.createElement('span');
-        var $input = document.createElement('input');
+            console.log(list);
+            var $span = document.createElement('span');
+            var $input = document.createElement('input');
 
-        $span.innerHTML = list.name;
-        $input.type = 'checkbox';
-        $input.id = list.id;
-        $input.value = list.name;
-        $input.checked = DEFAULT_STATE_CHECKBOXES;
+            $span.innerHTML = list.name;
+            $input.type = 'checkbox';
+            $input.id = list.id;
+            $input.value = list.name;
+            $input.checked = DEFAULT_STATE_CHECKBOXES;
 
-        $checkboxContainer.appendChild($input);
-        $checkboxContainer.appendChild($span);
-      }
-
-      var inputs = $checkboxContainer.getElementsByTagName('INPUT');
-
-      for(var input of inputs) {
-        console.log(input);
-        input.setAttribute('checked', DEFAULT_STATE_CHECKBOXES);
-        if (DEFAULT_STATE_CHECKBOXES) {
-        	selection.lists[input.id] = {
-          	id: input.id,
-            name: input.value
-          };
-
-          console.log('input val', input.value);
+            $checkboxContainer.appendChild($input);
+            $checkboxContainer.appendChild($span);
         }
-      };
 
-    	console.log('initial selection', selection);
-      document.getElementById('selectedLists').appendChild($checkboxContainer);
+        var inputs = $checkboxContainer.getElementsByTagName('INPUT');
 
-      // add event listeners
-    	this.addEventListeners();
+        for(var input of inputs) {
+            console.log(input);
+            input.setAttribute('checked', DEFAULT_STATE_CHECKBOXES);
+            if (DEFAULT_STATE_CHECKBOXES) {
+                selection.lists[input.id] = {
+                    id: input.id,
+                    name: input.value
+                };
+
+                console.log('input val', input.value);
+            }
+        };
+
+        console.log('initial selection', selection);
+        document.getElementById('selectedLists').appendChild($checkboxContainer);
+
+        // add event listeners
+        this.addEventListeners();
 
         this.renderOutput();
     },
-    addEventListeners() {
-	    document.getElementById('selectedLists')
-            .addEventListener('change', this.events.onChange);
-
-        document.getElementById('btnShare').addEventListener('click', share);
-    },
     events: {
         onChange(evt) {
-        	console.log('input change', evt, evt.target.checked);
-          if (evt.target.checked) {
-            selection.lists[evt.target.id] = {
-              id: evt.target.id,
-              name: evt.target.value
+            console.log('input change', evt, evt.target.checked);
+            if (evt.target.checked) {
+                selection.lists[evt.target.id] = {
+                    id: evt.target.id,
+                    name: evt.target.value
+                }
             }
-          }
-          else
-          {
-          	selection.lists[evt.target.id] = undefined;
-          }
-          console.log(selection);
-          renderOutput();
+            else
+            {
+                selection.lists[evt.target.id] = undefined;
+            }
+            console.log(selection);
+            renderOutput();
         },
         share(evt) {
-    	// filter data here
-          // 1. filter lists
-          // 2. remove cards not selected
+            // filter data here
+            // 1. filter lists
+            // 2. remove cards not selected
 
-          var filtered = {
-          	lists: [],
-            cards: []
-          };
+            var filtered = {
+                lists: [],
+                cards: []
+            };
 
-          var selectedIds = selection.lists.map(function(list) {
-          	//console.log(list);
-          	return list && list.id;
-          });
+            var selectedIds = selection.lists.map(function(list) {
+                //console.log(list);
+                return list && list.id;
+            });
 
-          console.log('ids', selectedIds, selection);
+            console.log('ids', selectedIds, selection);
 
-          filtered.lists = boardJson.lists.filter(function(list) {
-          	//console.log(list.id.toString(), selectedIds.indexOf(list.id.toString()));
-          	return selectedIds.indexOf(list.id.toString()) !== -1;
-          });
-          console.log(filtered);
-        	//alert('sharing selection' + JSON.stringify(filtered));
-          ListShare.cb(filtered);
+            filtered.lists = boardJson.lists.filter(function(list) {
+                //console.log(list.id.toString(), selectedIds.indexOf(list.id.toString()));
+                return selectedIds.indexOf(list.id.toString()) !== -1;
+            });
+            console.log(filtered);
+            //alert('sharing selection' + JSON.stringify(filtered));
+            ListShare.cb(filtered);
         }
-    },
-    renderOutput() {
-    	var $out = document.getElementById('sharedData');
-      var $li = document.createElement('li');
-      $out.innerHTML = '';
-    	for(var selected of selection.lists) {
-      	if (selected && selected.id) {
-        	$li.innerHTML = selected.name;
-        	$out.appendChild($li.cloneNode(true));
-        }
-      }
     }
 }
 
