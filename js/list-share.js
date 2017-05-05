@@ -74,7 +74,7 @@ var ListShare = {
             .addEventListener('change', this.events.onChange);
 
         document.getElementById('btnShare').addEventListener('click', share);
-    }
+    },
     events: {
         onChange(evt) {
         	console.log('input change', evt, evt.target.checked);
