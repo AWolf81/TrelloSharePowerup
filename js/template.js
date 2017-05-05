@@ -113,7 +113,7 @@ var shareBoard = function(t) {
 
 var shareBoardAction = function(data, t) {
     // action can be also used from board-bar
-    retrun postJSON(data).then(function(res, status, jqXHR) {
+    return postJSON(data).then(function(res, status, jqXHR) {
         var sharedURL  = jqXHR.getResponseHeader('Location');
         return t.popup({
             //url: PRINTER_URL + sharedURL, // url loads html into the popup
