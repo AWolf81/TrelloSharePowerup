@@ -1,6 +1,4 @@
 /* global TrelloPowerUp, jQuery */
-var template = require('./template.js');
-var listShare = require('./list-share.js');
 
 var DEFAULT_STATE_CHECKBOXES = true;
 var t = TrelloPowerUp.iframe();
