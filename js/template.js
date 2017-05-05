@@ -87,35 +87,7 @@ function shareCallback(type, t) {
             });
 
             if (type === 'board') {
-                return postJSON(boardJson).then(function(res, status, jqXHR) {
-                    var sharedURL  = jqXHR.getResponseHeader('Location');
-                    return t.popup({
-                        //url: PRINTER_URL + sharedURL, // url loads html into the popup
-                        title: 'Created shared board successfully',
-                        items: [
-                            {
-                                text: 'Open share',
-                                callback: function(t) {
-                                    openInNewTab(PRINTER_URL + sharedURL),
-                                    t.closePopup();
-                                }
-                            },
-                            {
-                                text: 'Copy URL to clipboard',
-                                callback: function(t) {
-                                    window.prompt("Copy to clipboard: Ctrl+C, Enter", PRINTER_URL + sharedURL);
-                                    t.closePopup();
-                                }
-                            },
-                            {
-                                text: 'Open share JSON',
-                                callback: function(t) {
-                                    openInNewTab(sharedURL),
-                                    t.closePopup();
-                                }
-                            },
-                        ]
-                    })
+                return shareBoardAction(boardJson, t);
                     /*.then(function(){
                       return t.closePopup();
                   })*/
@@ -142,6 +114,39 @@ function shareCallback(type, t) {
 var shareBoard = function(t) {
     return shareCallback('board', t);
 };
+
+var shareBoardAction = function(data, t) {
+    // action can be also used from board-bar
+    retrun postJSON(data).then(function(res, status, jqXHR) {
+        var sharedURL  = jqXHR.getResponseHeader('Location');
+        return t.popup({
+            //url: PRINTER_URL + sharedURL, // url loads html into the popup
+            title: 'Created shared board successfully',
+            items: [
+                {
+                    text: 'Open share',
+                    callback: function(t) {
+                        openInNewTab(PRINTER_URL + sharedURL),
+                        t.closePopup();
+                    }
+                },
+                {
+                    text: 'Copy URL to clipboard',
+                    callback: function(t) {
+                        window.prompt("Copy to clipboard: Ctrl+C, Enter", PRINTER_URL + sharedURL);
+                        t.closePopup();
+                    }
+                },
+                {
+                    text: 'Open share JSON',
+                    callback: function(t) {
+                        openInNewTab(sharedURL),
+                        t.closePopup();
+                    }
+                },
+            ]
+        })
+}
 
 var sharePanel = function(t) {
     return shareCallback('panel', t);
@@ -211,3 +216,8 @@ TrelloPowerUp.initialize({
     });
   }
 });
+
+module.exports = {
+    postJSON: postJSON,
+    shareBoardAction: shareBoardAction
+};
