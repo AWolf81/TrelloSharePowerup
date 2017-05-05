@@ -141,7 +141,11 @@ var shareBoardAction = function(data, t) {
                     }
                 },
             ]
-        })}
+        })
+        .catch(t.NotHandled, function(evt) {
+            console.log('not handled', evt, arguments);
+        });
+    }
         ,
         function(err) {
             console.log(err); // todo --> show notifcation
