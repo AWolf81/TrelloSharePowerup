@@ -32,7 +32,8 @@ var ListShare = {
         document.getElementById('selectedLists')
         .addEventListener('change', this.events.onChange);
 
-        document.getElementById('btnShare').addEventListener('click', this.share);
+        document.getElementById('btnShare').addEventListener('click',
+            this.events.share);
     },
     renderOutput: function() {
         var $out = document.getElementById('sharedData');
