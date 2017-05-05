@@ -91,10 +91,6 @@ function shareCallback(type, t) {
                     /*.then(function(){
                       return t.closePopup();
                   })*/
-                },
-                function(err) {
-                    console.log(err); // todo --> show notifcation
-                });
             }
             else {
                 // load board bar and display checkboxes with panels to export
@@ -145,8 +141,12 @@ var shareBoardAction = function(data, t) {
                     }
                 },
             ]
-        })
-}
+        })}
+        ,
+        function(err) {
+            console.log(err); // todo --> show notifcation
+        });
+};
 
 var sharePanel = function(t) {
     return shareCallback('panel', t);
