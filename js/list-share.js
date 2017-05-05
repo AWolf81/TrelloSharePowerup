@@ -84,7 +84,7 @@ var ListShare = {
         // add event listeners
         ListShare.addEventListeners();
 
-        this.renderOutput();
+        ListShare.renderOutput();
     },
     events: {
         onChange: function(evt) {
@@ -100,7 +100,7 @@ var ListShare = {
                 selection.lists[evt.target.id] = undefined;
             }
             console.log(selection);
-            renderOutput();
+            ListShare.renderOutput();
         },
         share: function(evt) {
             // filter data here
