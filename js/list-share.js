@@ -28,13 +28,13 @@ var selection = {
 var DEFAULT_STATE_CHECKBOXES = true;
 
 var ListShare = {
-    addEventListeners() {
+    addEventListeners: function() {
         document.getElementById('selectedLists')
         .addEventListener('change', this.events.onChange);
 
         document.getElementById('btnShare').addEventListener('click', share);
     },
-    renderOutput() {
+    renderOutput: function() {
         var $out = document.getElementById('sharedData');
         var $li = document.createElement('li');
         $out.innerHTML = '';
@@ -45,7 +45,7 @@ var ListShare = {
             }
         }
     },
-    initForm(boardJson, cb) {
+    initForm: function(boardJson, cb) {
         var $checkboxContainer = document.createElement('div');
         this.cb = cb;
         for (var list of boardJson.lists) {
@@ -87,7 +87,7 @@ var ListShare = {
         this.renderOutput();
     },
     events: {
-        onChange(evt) {
+        onChange: function(evt) {
             console.log('input change', evt, evt.target.checked);
             if (evt.target.checked) {
                 selection.lists[evt.target.id] = {
@@ -102,7 +102,7 @@ var ListShare = {
             console.log(selection);
             renderOutput();
         },
-        share(evt) {
+        share: function(evt) {
             // filter data here
             // 1. filter lists
             // 2. remove cards not selected
