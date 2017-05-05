@@ -87,7 +87,7 @@ function shareCallback(type, t) {
             });
 
             if (type === 'board') {
-                return shareBoardAction(boardJson, t);
+                return shareBoardAction(boardJson);
                     /*.then(function(){
                       return t.closePopup();
                   })*/
@@ -111,7 +111,11 @@ var shareBoard = function(t) {
     return shareCallback('board', t);
 };
 
-var shareBoardAction = function(data, t) {
+var shareBoardAction = function(data) {
+    if (!t) {
+        t = TrelloPowerUp.iframe();
+    }
+
     // action can be also used from board-bar
     return postJSON(data).then(function(res, status, jqXHR) {
         var sharedURL  = jqXHR.getResponseHeader('Location');

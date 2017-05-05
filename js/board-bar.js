@@ -15,5 +15,5 @@ var boardJson = t.args[1];
 listShare.init(boardJson, function(data) {
     // callback to trigger share with filteredData
     console.log('share callback', data);
-    template.shareBoardAction(data, t);
+    template.shareBoardAction(data);
 });
